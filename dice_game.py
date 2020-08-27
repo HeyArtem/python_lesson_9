@@ -7,15 +7,15 @@ class Dice:
     def set_hidden_numbers(self):  # настройка параметров бросания костей
         self._hidden_num_1 = random.randint(1,6)  # _'земля' в начале, значит, что параметры скрытые
         self._hidden_num_2 = random.randint(1,6)
-        print("печатаю self._hidden_num 1 и 2: ", self._hidden_num_1, self._hidden_num_2)
+        print("печатаю self._hidden_num 1 и 2: ", self._hidden_num_1, self._hidden_num_2)         # это я мониторю
 
     def throw_dices(self):
         dice_1 = random.randint(1, 6) # бросаем кости
         dice_2 = random.randint(1, 6) # бросаем кости 2
         self.current_throw+=1
-        print("Печатаю self.current_throw: ", self.current_throw)
-        print("Печатаю dice 1 и 2: ", dice_1, dice_2 )
-        if self.current_throw > self.throw_num:
+        print("Печатаю self.current_throw: ", self.current_throw)           # это я мониторю
+        print("Печатаю dice 1 и 2: ", dice_1, dice_2 )                      # это я мониторю
+        if self.current_throw > self.throw_num:              # если количество бросков превысило запланированное
             raise Exception("Вы превысили количество попыток! ")
 
         if {dice_1,dice_2} == {self._hidden_num_1, self._hidden_num_2}: # Почему оформлено, как множество (только уникальные элементы?)
