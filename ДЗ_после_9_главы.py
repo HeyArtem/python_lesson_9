@@ -27,9 +27,9 @@ class Card(object):
         self.suit = suit  # атрибут экз-ра класса
         self.rank = rank  # атрибут экз-ра класса
 
-#inside class Card:
     suit_names = ['Clubs', 'Dianonds', 'Hearts', 'Spades']
     rank_names = [None, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace']
+
 
     def __str__(self):   # является объектом типа Card
         """" Возвращает удобочитаемое представление  """
@@ -37,60 +37,101 @@ class Card(object):
                              Card.suit_names[self.suit])
 
 
-# пробую распечатать карты
-card_1 = Card(0, 2)
-print(card_1)
+# # пробую распечатать карты
+# card_1 = Card(0, 1)
+# print('выводим rank & suit:' , card_1)
 
 
+    def __eq__(self, other):
+        ''''
+        ПРоверка, совпадает ли ранг и масть у себя и других
+        Возвращает логическое (boolean)
+        '''
+        return self.suit == other.suit and self.rank == other.rank
 
+    def __it__(self, other):
+        ''''
+        Сравнивает карты с другими, сначало по масти, затем по рангу
+        Compares this card to other, first by suit, then rank
+        :returns boolean
 
-
-''''
-    def __cmp__(self, other):
-        """" Сравнение мастей """
-        if self.suit > other.suit: return 1
-        if self.suit < other.suit: return -1
-
-        """" Если масти совпадают --> сравнение Рангов """
-        if self.rank > other.rank: return 1
-        if self.rank < other.rank: return -1
-
-        """" Ранги совпадают  --> Ничья"""
-        return 0
-
-
-Ниже другой способ такого же сравнения
-
-'''
-
-    def __cmp__(self, other):
+        '''
         t1 = self.suit, self.rank
         t2 = other.suit, other.rank
-        return __cmp__(t1, t2) # или return t1 < t2, как в коде def __eq__
+        return t1 < t2   # вот здесь... где то было не так
 
+class Deck:
+    ''''
+        Represents a deck of cards.
+        Attributes:
+            cards: list of Card objects.
 
+        Представляет собой колоду карт.
+        Атрибуты: список карт
 
-class Deck(object):
-    """" Это колода карт """
+    '''
 
     def __init__(self):
-
+        ''''
+        Initializes the Deck with 52 cards.
+        '''
         self.cards = []
-        for suit in range(4):
-            for rank in range(1, 10):
-                card = Card(suit, rank)
-                self.cards.append(card)
 
-    def __str__(self):
-        """" Возвращает строковое представление колоды. """
-        res = []
-        print('res: ', res)
-        for card in self.cards:
-            res.append(str(card))
-            return '\n'.join(res)
-            print('--> ', res)
-deck = Deck()
-print(deck)
+
+
+
+
+
+#
+#     def __cmp__(self, other):
+#         """" Сравнение мастей """
+#         if self.suit > other.suit: return 1
+#         if self.suit < other.suit: return -1
+#
+#         """" Если масти совпадают --> сравнение Рангов """
+#         if self.rank > other.rank: return 1
+#         if self.rank < other.rank: return -1
+#
+#         """" Ранги совпадают  --> Ничья"""
+#         return 0
+#
+#
+# Ниже другой способ такого же сравнения
+#
+
+
+#     def __cmp__(self, other):
+#         t1 = self.suit, self.rank
+#         t2 = other.suit, other.rank
+#         return cmp (t1, t2) # или return t1 < t2, как в коде def __eq__
+#
+#
+#
+# class Deck(object):
+#     """" Это колода карт """
+#
+#     def __init__(self):
+#
+#         self.cards = []
+#         for suit in range(4):
+#             for rank in range(1, 10):
+#                 card = Card(suit, rank)
+#                 self.cards.append(card)
+#
+#     def __str__(self):
+#         """" Возвращает строковое представление колоды. """
+#         res = []
+#         print('res: ', res)
+#         for card in self.cards:
+#             res.append(str(card))
+#         return '\n'.join(res)
+#
+# deck = Deck()
+# print(deck)
+#
+#     def pop_card(self):
+#         return self.cards.pop()
+#
 
 
 
