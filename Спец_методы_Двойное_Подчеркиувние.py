@@ -357,3 +357,50 @@ print("    пример dir")
 print(dir(ip1))
 print(dir(a1))
 
+print()
+print('метод __lt__')
+'''' 
+__lt__(self, other) ->  x < y  вызывает x.__lt__(y).
+
+'''
+class Word(str):
+    '''Класс для слов, определяющий сравнение по длине слов.'''
+
+    def __new__(cls, word):
+        # Мы должны использовать __new__, так как тип str неизменяемый
+        # и мы должны инициализировать его раньше (при создании)
+        if ' ' in word:
+            print("Value contains spaces. Truncating to first space.")
+            word = word[:word.index(' ')] # Теперь Word это все символы до первого пробела
+        return str.__new__(cls, word)
+
+    def __gt__(self, other):
+        return len(self) > len(other)
+    def __lt__(self, other):
+        return len(self) < len(other)
+    def __ge__(self, other):
+        return len(self) >= len(other)
+    def __le__(self, other):
+        return len(self) <= len(other)
+
+exm_1 = Word('foo')
+exm_2 = Word('bbar')
+print("функция __lt(x < y):", exm_1.__lt__(exm_2))
+print("функция __lt(x < y):", exm_2.__lt__(exm_1))
+print(exm_1.__gt__(exm_2))
+print(exm_1.__le__(exm_2))
+
+
+print()
+print("    Метод __eg__")
+print("    Метод __ne__")
+''''
+__eq__(self, other) -> x == y вызывает x.__eq__(y).
+
+__ne__(self, other) -> x != y вызывает x.__ne__(y)
+
+'''
+print('Проверяем метод __eq__ (x == y): ', exm_1.__eq__(exm_2))
+print('Проверяем метод __ne__ (x != y): ', exm_1.__ne__(exm_2))
+
+
