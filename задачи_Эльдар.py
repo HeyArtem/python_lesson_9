@@ -254,7 +254,7 @@ class User():
 
     def increment_login_attempts(self, qty):
         ''' метод должен увеличивать значение login_attempts на 1 не зависимо от значение qty '''
-        self.login_attempts = +1
+        self.login_attempts = self.login_attempts +1
 
     def reset_login_attempts(self):
         self.login_attempts = 0
@@ -264,10 +264,73 @@ new_user = User('Светлана', 'Чижикова', '27', 'жен.') # со�
 
 print('Значение login_attempts до изменения: ',new_user.login_attempts)
 new_user.increment_login_attempts(20) # меняю значение login_attempts.
-print('Значение login_attempts ПОСЛЕ изменения: ',new_user.login_attempts)
+print('Значение login_attempts ПОСЛЕ изменения 1 : ',new_user.login_attempts)
+
+new_user.increment_login_attempts(0) # повторно №2 меняю значение login_attempts.
+new_user.increment_login_attempts(-100000) # повторно №3 меняю значение login_attempts.
+
+print('Значение login_attempts после трех изменений : ',new_user.login_attempts)
+
+
 new_user.reset_login_attempts() # сбрасываю значение login_attempts на ноль
 print('Значение login_attempts после сбрасывания: ', new_user.login_attempts)
 
+
+print()
+print('    -6. Киоск с мороженым')
+
+'''
+6. Киоск с мороженым — особая разновидность ресторана. Напишите класс IceCreamStand, 
+наследующий от класса Restaurant из упражнения 1 или упражнения 4. 
+Подойдет любая версия класса; просто выберите ту, которая вам больше нравится. 
+
+Добавьте атрибут с именем flavors для хранения списка сортов мороженого. 
+Напишите метод, который выводит этот список. 
+Создайте экземпляр IceCreamStand и вызовите этот метод.
+
+
+'''
+
+class Restaurant(): # ДЛя создания нового класса 'IceCreamStand' наследника от 'Restaurant' напишу class Restaurant()
+    def __init__(self, restaurant_name, cuisine_type):
+        self.restaurant_name = restaurant_name # имя ресторана
+        self.cuisine_type = cuisine_type # тип кухни
+        self.number_served = 0 # количество обслуженных посетителей
+
+    def describe_restaurant(self):
+        '''' метод выводит название ресторана и кухню'''
+        name_type = f"Ресторан:{self.restaurant_name}, Кухня:{self.cuisine_type}."
+        return name_type.title()
+
+
+    def open_restaurant(self):
+        '''' метод выводит  информацию, что ресторан открыт'''
+        return "Ресторан открыт"
+
+    def set_number_served(self, s_num_ser):
+        ''' метод для изменения атрибута: number_served (количество обслуженных посетителей'''
+        self.number_served = s_num_ser
+
+    def increment_number_served(self, qty):
+        ''' метод меняет атрибут number_served (количество обслуженных посетителей, приращением (зависит от знака)'''
+        self.number_served += qty
+
+class IceCreamStand(Restaurant): # Это класс потомок от класса Restaurant
+    def __init__(self, restaurant_name, cuisine_type):
+        super().__init__(restaurant_name, cuisine_type)
+        self.flavors = 'Ваниль', 'Шоколад', 'Клубника', 'Томат'
+
+    def show_flavors(self):
+        show = f'вкусы мороженого: {self.flavors}'
+        return show.title()
+
+
+my_ice_cream = IceCreamStand('Павильон мороженое', 'Сорбеты и мороженое') # создал экземпляр на основе класса потомка
+
+print(my_ice_cream.describe_restaurant()) # распечатываю экземпляр my_ice_cream класса потомка IceCreamStand
+
+print(f'Вкусы: {my_ice_cream.flavors}') # распечатал вкусы прямым способом
+print("Вывожу вкусы мороженого через метод 'show_flavors': ",  my_ice_cream.show_flavors()) # распечатал вкусы при помощи метода
 
 
 
