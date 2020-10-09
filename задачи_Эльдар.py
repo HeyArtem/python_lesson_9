@@ -337,5 +337,150 @@ print("Вывожу вкусы мороженого через метод 'show_
 
 
 
+print()
+print('    -7. Администратор — особая разновидность пользователя. ')
+
+'''
+7. Администратор — особая разновидность пользователя. 
+Напишите класс с именем Admin, наследующий от класса User из упражнения 3 или упражнения 5. 
+
+Добавьте атрибут privileges для хранения списка строк вида "разрешено добавлять сообщения", 
+"разрешено удалять пользователей", "разрешено банить пользователей" и т. д. 
+
+Напишите метод show_privileges() для вывода набора привилегий администратора. 
+
+Создайте экземпляр Admin и вызовите свой метод.
+
+'''
+
+class User(): # это класс будет супер классом
+    def __init__(self, first_name, last_name, age, gender ):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.age = age
+        self.gender = gender
+        self.login_attempts = 0
+
+    def describe_user(self):
+        info_user = f"\nИмя: {self.first_name}\nФамилия: {self.last_name}\nВозраст: {self.age}\nПол: {self.gender}."
+        return info_user.title()
+
+    def greet_user(self):
+        hi = f" Привет {self.first_name} {self.last_name} !!!"
+        return hi.title()
+
+    def increment_login_attempts(self, qty):
+        ''' метод должен увеличивать значение login_attempts на 1 не зависимо от значение qty '''
+        self.login_attempts = self.login_attempts +1
+
+    def reset_login_attempts(self):
+        self.login_attempts = 0
+
+class Admin(User): # Это класс потомок
+    def __init__(self, first_name, last_name, age, gender):
+        super().__init__(first_name, last_name, age, gender)
+        self.privileges = "разрешено добавлять сообщения", "разрешено удалять пользователей", "разрешено банить пользователей", "разрешено модерировать чат"
+
+
+    def show_privileges(self):
+        show_priv = f"Администратору разрешено:\n {self.privileges}  и не только... "
+        return show_priv.title()
+
+admin = Admin('Арина', 'Синичкина', '98', 'n/d') # создал новый экземпляр
+print('Проверка пользователя admin: ', admin.describe_user()) # конторльная распечатка данных
+
+#print(admin.self.privileges()) # не получается распечатать на прямую почему то???
+print(admin.show_privileges()) # не знаю, как убрать скобки при выводе
+
+
+print()
+print('    -8. Напишите класс Privileges.')
+'''
+8. Напишите класс Privileges. 
+Класс должен содержать всего один атрибут privileges со списком строк из упражнения 7. 
+
+Переместите метод show_privileges() в этот класс. 
+
+Создайте экземпляр Privileges как атрибут класса Admin. 
+
+Создайте новый экземпляр Admin и используйте свой метод для вывода списка привилегий.
+
+
+'''
+
+class Privileges():
+    def __init__(self, privileges):
+        self.privileges = "разрешено добавлять сообщения", "разрешено удалять пользователей", "разрешено банить пользователей", "разрешено модерировать чат"
+
+    def show_privileges(self): # выводит список, что разрешено админу
+        print(f"Администратору разрешено: {self.privileges}. ")
+
+poi = Privileges("разрешено добавлять сообщения") # создал экземпляр
+poi.show_privileges() # проверка метода по выводу прав админа
+
+
+''' 
+План: 
+ДЛя того, что бы создать экземпляр Privileges как атрибут класса Admin
+-Я сначала пишу родительский класс (Super Class) User,
+ 
+-дальше создаю класс потомок  Admin , класс Privileges
+
+-который помещу в параметры класса Admin )))
+
+'''
+
+class User(): # это класс будет супер классом для потомка админ
+    def __init__(self, first_name, last_name, age, gender ):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.age = age
+        self.gender = gender
+        self.login_attempts = 0
+
+    def describe_user(self):
+        info_user = f"\nИмя: {self.first_name}\nФамилия: {self.last_name}\nВозраст: {self.age}\nПол: {self.gender}."
+        return info_user.title()
+
+    def greet_user(self):
+        hi = f" Привет {self.first_name} {self.last_name} !!!"
+        return hi.title()
+
+    def increment_login_attempts(self, qty):
+        ''' метод должен увеличивать значение login_attempts на 1 не зависимо от значение qty '''
+        self.login_attempts = self.login_attempts +1
+
+    def reset_login_attempts(self):
+        self.login_attempts = 0
+
+
+
+
+
+class Privileges():
+    def __init__(self, privileges=" 'разрешено добавлять сообщения',  'разрешено удалять пользователе', 'разрешено банить пользователей', 'разрешено модерировать чат' " ):
+        self.privileges = privileges # меня смущает мое оформление, именно эта длинная строка в self __init__. Может это можно как то короче оформить?
+
+    def show_privileges(self): # выводит список, что разрешено админу
+        print(f"Администратору разрешено: {self.privileges}. ")
+
+
+
+
+
+class Admin(User): # Это класс потомок в него в параметры я размещу класс Privileges()
+    def __init__(self, first_name, last_name, age, gender):
+        super().__init__(first_name, last_name, age, gender)
+        self.privileges = Privileges()  # здесь я создаю параметр из экземпляра
+
+
+    def show_privileges(self):
+        show_priv = f"Администратору разрешено:\n {self.privileges}  и не только... "
+        return show_priv.title()
+
+
+new_2 = Admin('Дядя', 'Степа', '150', 'муж.') # создали экземпляр
+print(new_2.describe_user()) # контрольная описательная распечатка
+new_2.privileges.show_privileges()
 
 
